@@ -2141,7 +2141,7 @@ interface IPRE {
     function balanceOf(address user) external view returns (uint256);
 }
 
-contract ToFGenisisNFT is ERC721, ERC721Enumerable, Ownable, ReentrancyGuard {
+contract ToFGenesisNFT is ERC721, ERC721Enumerable, Ownable, ReentrancyGuard {
     using Counters for Counters.Counter;
     string private _api_entry;
     string private _contract_entry;
@@ -2200,7 +2200,7 @@ contract ToFGenisisNFT is ERC721, ERC721Enumerable, Ownable, ReentrancyGuard {
     function mint(address _to, uint256 _mintAmount) public nonReentrant onlyOwner {
         for (uint256 i = 1; i <= _mintAmount; i++) {
             _safeMint(_to, _tokenIds.current() + i );
-        _tokenIds.increment();
+             _tokenIds.increment();
         }           
 	}
 
