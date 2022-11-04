@@ -2149,6 +2149,7 @@ contract ToFGenisisNFT is ERC721, ERC721Enumerable, Ownable, ReentrancyGuard {
     mapping (address => bool) private checkMint;
     Counters.Counter private _tokenIds;
     bool public isTrading = false;
+    bool public isNFTLimit = true;
     uint16 public constant MAX_SUPPLY = 250;
     uint256 public MIN_REQUIRED_TOF = 0;
     uint256 public PRICE = 50000000000000000; // 0.05 Eth
@@ -2171,9 +2172,11 @@ contract ToFGenisisNFT is ERC721, ERC721Enumerable, Ownable, ReentrancyGuard {
 
     modifier canMint() {
         uint256 supply = totalSupply();
-        if (supply + 1 > MAX_SUPPLY) revert ExceedMaxSupply();
-        if (checkMint[msg.sender]) revert AlreadyMinted();
-        _;
+        if (isNFTLimit){
+            if (supply + 1 > MAX_SUPPLY) revert ExceedMaxSupply();
+            if (checkMint[msg.sender]) revert AlreadyMinted();
+        }   
+         _;     
     }
 
     //Standard Mint
@@ -2204,6 +2207,11 @@ contract ToFGenisisNFT is ERC721, ERC721Enumerable, Ownable, ReentrancyGuard {
     //Set Token Trading
     function setPublicSale(bool _state) public onlyOwner {
         isTrading = _state;
+    }
+
+    //Turn off wallet buy limit
+    function setWalletBuyLimitState(bool _state) public onlyOwner {
+        isNFTLimit = _state;
     }
 
     // Token address of ToF
