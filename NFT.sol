@@ -2145,6 +2145,7 @@ contract ToFGenesisNFT is ERC721, ERC721Enumerable, Ownable, ReentrancyGuard {
     using Counters for Counters.Counter;
     string private _api_entry;
     string private _contract_entry;
+    string public baseExtension = "";
     address public token = 0x90E2Fa98DfC518317600Dd3DC571DE8D071a7238;
     mapping (address => bool) private checkMint;
     Counters.Counter private _tokenIds;
@@ -2156,9 +2157,7 @@ contract ToFGenesisNFT is ERC721, ERC721Enumerable, Ownable, ReentrancyGuard {
     error AlreadyMinted();
     error ExceedMaxSupply();
 
-    constructor() ERC721("Rhllor", "RhllorNFT") {
-        _api_entry = "https://api.rhllorinu.net/";
-        _contract_entry = "https://api.rhllorinu.net/contract/";
+    constructor() ERC721("Token of Fire", "Genesis NFT") {
         _tokenIds.increment();
     }
 
@@ -2223,6 +2222,19 @@ contract ToFGenesisNFT is ERC721, ERC721Enumerable, Ownable, ReentrancyGuard {
     function setMinTokenRequirements (uint256 _amount) public onlyOwner {
         require(_amount >= 0, "ToF requirements can not be negative" );
         MIN_REQUIRED_TOF = _amount;
+    }
+
+    //Update URI extention
+    function setBaseExtension(string memory _newBaseExtension) public onlyOwner {
+        baseExtension = _newBaseExtension;
+    }
+
+    function tokenURI(uint256 tokenId) public view virtual override returns (string memory) {
+    require(_exists(tokenId), "ERC721Metadata: URI query for nonexistent token");
+    string memory currentBaseURI = _baseURI();
+    return bytes(currentBaseURI).length > 0
+        ? string(abi.encodePacked(currentBaseURI, tokenId.toString(), baseExtension))
+        : "";
     }
 
     //Update Base URI
