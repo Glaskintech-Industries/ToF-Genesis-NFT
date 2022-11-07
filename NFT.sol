@@ -2157,7 +2157,7 @@ contract ToFGenesisNFT is ERC721, ERC721Enumerable, Ownable, ReentrancyGuard {
     error AlreadyMinted();
     error ExceedMaxSupply();
 
-    constructor() ERC721("Token of Fire", "Genesis NFT") {
+    constructor() ERC721("Token of Fire - Rhllor", "ToF NFT") {
         _tokenIds.increment();
     }
 
