@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.17;
 
+
 /**
  * @dev Standard math utilities missing in the Solidity language.
  */
@@ -2143,6 +2144,7 @@ interface IPRE {
 
 contract ToFGenesisNFT is ERC721, ERC721Enumerable, Ownable, ReentrancyGuard {
     using Counters for Counters.Counter;
+    using Strings for uint256;
     string private _api_entry;
     string private _contract_entry;
     string public baseExtension = "";
