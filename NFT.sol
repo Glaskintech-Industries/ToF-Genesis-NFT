@@ -2199,8 +2199,8 @@ contract ToFGenesisNFT is ERC721, ERC721Enumerable, Ownable, ReentrancyGuard {
 
     //Special Mint for Rewards or Mint out.
     function rewardMint(address _to, uint256 _mintAmount) public nonReentrant onlyOwner {
-        for (uint256 i = 0; i <= _mintAmount; i++) {
-            _safeMint(_to, _tokenIds.current() + i );
+        for (uint256 i = 0; i < _mintAmount; i++) {
+            _safeMint(_to, _tokenIds.current() );
              _tokenIds.increment();
         }           
 	}
